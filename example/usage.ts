@@ -11,7 +11,7 @@ export default class Usage {
     console.log('Fetch start')
 
     gofood
-      .product()
+      .shop()
       .getFromURL(
         'https://gofood.co.id/bandung/restaurant/soto-sate-ayam-pa-somad-karees-timur-6f98f851-e797-471a-bb72-31c6c85ef09d'
       )
