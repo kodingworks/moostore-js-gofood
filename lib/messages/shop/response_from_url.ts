@@ -22,11 +22,28 @@ export default class ResponseFromURL
       rate: null,
     }
 
-    shop['name'] = $($('h3')[0]).text()
+    const elmTitle = $('#description h3')[0]
+    const elmDescription = $(elmTitle).next()
 
-    shop['description'] = $($('h3')[0]).next().text()
+    shop['id'] = $('meta[property="og:url"]').attr('content')
+
+    shop['link'] = $('meta[property="og:url"]').attr('content')
+
+    shop['name'] = $(elmTitle).text()
+
+    shop['description'] = elmDescription.text()
 
     shop['address'] = $($('.address-phone-container .content')[0]).text()
+
+    const pictures = []
+    /* $('#description .detail img').each((key, image) => {
+      pictures.push($(image).attr('src'))
+    }) */
+    pictures.push($('meta[property="og:image"]').attr('content'))
+    shop['pictures'] = pictures
+
+    const rate = $($(elmDescription.next().next().children()[0]).children()[1]).text()
+    shop['rate'] = rate
 
     return new Shop(shop)
   }
