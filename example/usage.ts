@@ -6,16 +6,40 @@ const cheerio = require('cheerio')
 
 export default class Usage {
   main() {
-    const moostore = new MoostoreJS()
+    const credentials = ''
+    const baseURL = ''
+
+    const configuration = new Configuration({
+      credentials,
+      baseURL,
+      cachePath: './cache'
+    })
+
+    const moostore = new MoostoreJS(configuration)
 
     const gofood: Gofood = new Gofood(moostore)
 
     console.log('Fetch start')
 
-    /* gofood
+    gofood
       .shop()
       .getFromURL(
-        'https://gofood.co.id/bandung/restaurant/soto-sate-ayam-pa-somad-karees-timur-6f98f851-e797-471a-bb72-31c6c85ef09d'
+        'https://gofood.co.id/english/jakarta/restaurant/xiboba-cilandak-9569459c-ebf7-43a1-8109-590c3ae68663'
+      )
+      .then((response) => {
+        const data = response.getData()
+        console.log('Data fetched')
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+
+    /* gofood
+      .shop()
+      .getProducts(
+        'https://gofood.co.id/english/jakarta/restaurant/xiboba-cilandak-9569459c-ebf7-43a1-8109-590c3ae68663'
       )
       .then((response) => {
         const data = response.getData()
@@ -25,21 +49,6 @@ export default class Usage {
       .catch((err) => {
         console.log(err)
       }) */
-
-
-    gofood
-      .shop()
-      .getProducts(
-        'https://gofood.co.id/bandung/restaurant/soto-sate-ayam-pa-somad-karees-timur-6f98f851-e797-471a-bb72-31c6c85ef09d'
-      )
-      .then((response) => {
-        const data = response.getData()
-        console.log('Data fetched')
-        console.log(data)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
   }
 }
 
