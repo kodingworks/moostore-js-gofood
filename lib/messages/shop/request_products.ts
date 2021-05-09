@@ -3,10 +3,11 @@ import Request from 'moostorejs/lib/messages/request'
 import RequestInterface from 'moostorejs/lib/messages/request_interface'
 import Parameter from 'moostorejs/lib/parameter'
 import ResponseProducts from './response_products'
-import * as fs from 'fs'
 
 export default class RequestProducts extends Request implements RequestInterface {
   parameters: Parameter
+
+  interceptRequests: Array<String> = ['font', 'stylesheet', 'media']
 
   constructor(configuration: Configuration, parameters: Parameter) {
     super(configuration)
@@ -26,15 +27,15 @@ export default class RequestProducts extends Request implements RequestInterface
   }
 
   async postRequestCallback(page) {
-    // await page.waitForSelector('section .main-container')
+    await page.waitForSelector('section .main-container')
+
+    return true
   }
 
   async execute() {
     const html = await this.getPage()
     const response = new ResponseProducts()
     response.setData(html)
-
-    fs.writeFile('log.html', html, () => {})
 
     return response
   }
